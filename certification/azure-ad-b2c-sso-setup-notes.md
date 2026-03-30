@@ -1,0 +1,12 @@
+<img width="2400" height="1350" alt="1_Setting-Up-Sign-In-for-Single-Page-Apps-with-Azure-AD-B2C" src="https://github.com/user-attachments/assets/481c1290-b805-4707-9592-c9ab74045be4" />
+<img width="2400" height="1350" alt="2_Important-Notes-About-Your-Tenant" src="https://github.com/user-attachments/assets/cad28dde-6edc-412d-8ed7-fd276c128330" />
+<img width="2400" height="1754" alt="3_Prerequisites-and-Setup" src="https://github.com/user-attachments/assets/c1e72a9c-0e65-476f-91e2-5120fab55dc6" />
+<img width="2400" height="2292" alt="4_Authentication-Process" src="https://github.com/user-attachments/assets/fe2da995-cc2f-4282-94f9-fcf447dacf0c" />
+<img width="2400" height="1350" alt="5_Accessing-Protected-Resources" src="https://github.com/user-attachments/assets/6eede2f3-d323-449c-9076-0f343751ff68" />
+<img width="2400" height="1350" alt="6_Creating-an-Azure-Active-Directory-B2C-Tenant" src="https://github.com/user-attachments/assets/1d71d421-9558-4428-87f4-a411c1b7c5c8" />
+<img width="2400" height="1350" alt="7_Important-Considerations-Before-You-Begin" src="https://github.com/user-attachments/assets/576cecd7-672e-48c4-b218-9c92263f5166" />
+<img width="2400" height="1350" alt="8_Prerequisites" src="https://github.com/user-attachments/assets/83ead98c-c179-4800-8d6a-a07b9edc16a2" />
+<img width="2400" height="1690" alt="9_Creating-Your-Azure-AD-B2C-Tenant" src="https://github.com/user-attachments/assets/07b6ca75-dabf-423a-a08a-7779ce774be8" />
+<img width="2400" height="2290" alt="10_Configuring-Your-New-Tenant" src="https://github.com/user-attachments/assets/14669095-6a01-4346-bfac-de7ffbfe7abc" />
+<img width="2400" height="2026" alt="11_Go-Local-Add-on-for-Data-Residency" src="https://github.com/user-attachments/assets/f8860579-6ec1-488d-8f7b-09872dddcf53" />
+<img width="2400" height="1450" alt="12_Accessing-Your-New-B2C-Tenant" src="https://github.com/user-attachments/assets/07c91586-2e1a-44e2-80c6-466240ec4bcd" />

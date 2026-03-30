@@ -1,0 +1,636 @@
+{
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Cisco Meraki API v1 — Security Operations Dashboard. Requires MerakiEvents data collection pipeline writing to the configured data source.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 100,
+      "title": "Organisation Overview",
+      "type": "row"
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Number of network devices currently online",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
+      "id": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "text": {},
+        "textMode": "auto"
+      },
+      "title": "Devices Online",
+      "type": "stat",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) FROM meraki_device_status WHERE status='online' AND $__timeFilter(time)"
+        }
+      ]
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Number of network devices currently offline",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 5 }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
+      "id": 2,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "textMode": "auto"
+      },
+      "title": "Devices Offline",
+      "type": "stat",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) FROM meraki_device_status WHERE status='offline' AND $__timeFilter(time)"
+        }
+      ]
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Total network events in selected time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "blue", "value": null }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["sum"] },
+        "textMode": "auto"
+      },
+      "title": "Total Events",
+      "type": "stat",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) FROM meraki_events WHERE $__timeFilter(time)"
+        }
+      ]
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Total firewall deny hits in selected time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 10 },
+              { "color": "red", "value": 100 }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 1 },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["sum"] },
+        "textMode": "auto"
+      },
+      "title": "Firewall Deny Hits",
+      "type": "stat",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) FROM meraki_events WHERE event_type='firewall' AND $__timeFilter(time)"
+        }
+      ]
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Unique active clients on the network",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "blue", "value": null }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 1 },
+      "id": 5,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "textMode": "auto"
+      },
+      "title": "Active Clients",
+      "type": "stat",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(distinct client_mac) FROM meraki_clients WHERE $__timeFilter(time)"
+        }
+      ]
+    },
+
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+      "id": 101,
+      "title": "Event Timeline",
+      "type": "row"
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Network events over time, grouped by event type",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Events",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "normal" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 80 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 8, "w": 16, "x": 0, "y": 6 },
+      "id": 10,
+      "options": {
+        "legend": { "calcs": ["sum"], "displayMode": "table", "placement": "right", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "title": "Network Events by Type",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) FROM meraki_events WHERE $__timeFilter(time) GROUP BY time($__interval), event_type fill(0)"
+        }
+      ]
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Proportion of events by type in selected time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "hideFrom": { "legend": false, "tooltip": false, "viz": false } },
+          "mappings": []
+        }
+      },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 6 },
+      "id": 11,
+      "options": {
+        "legend": { "displayMode": "table", "placement": "right", "showLegend": true, "values": ["percent"] },
+        "pieType": "donut",
+        "tooltip": { "mode": "single", "sort": "none" }
+      },
+      "title": "Event Type Distribution",
+      "type": "piechart",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) FROM meraki_events WHERE $__timeFilter(time) GROUP BY event_type"
+        }
+      ]
+    },
+
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 14 },
+      "id": 102,
+      "title": "Firewall & Security",
+      "type": "row"
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Top source IP addresses blocked by L3 firewall rules",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "custom": {
+            "align": "auto",
+            "cellOptions": { "type": "auto" },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 10 },
+              { "color": "red", "value": 50 }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Hit Count" },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": { "mode": "gradient", "type": "gauge" }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 15 },
+      "id": 20,
+      "options": {
+        "cellHeight": "sm",
+        "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+        "showHeader": true,
+        "sortBy": [{ "desc": true, "displayName": "Hit Count" }]
+      },
+      "title": "Top Blocked Source IPs",
+      "type": "table",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) AS \"Hit Count\", src_ip AS \"Source IP\", last(dest_ip) AS \"Dest IP\", last(rule_comment) AS \"Rule\" FROM meraki_events WHERE event_type='firewall' AND $__timeFilter(time) GROUP BY src_ip ORDER BY \"Hit Count\" DESC LIMIT 20"
+        }
+      ]
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Firewall deny events over time",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "red" },
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 70,
+            "lineWidth": 1,
+            "stacking": { "group": "A", "mode": "none" }
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 15 },
+      "id": 21,
+      "options": {
+        "legend": { "calcs": ["sum", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "single", "sort": "none" }
+      },
+      "title": "Firewall Deny Events Over Time",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) AS \"Deny Hits\" FROM meraki_events WHERE event_type='firewall' AND $__timeFilter(time) GROUP BY time($__interval) fill(0)"
+        }
+      ]
+    },
+
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 25 },
+      "id": 103,
+      "title": "Client Activity",
+      "type": "row"
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Most active clients by data usage",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "custom": {
+            "align": "auto",
+            "cellOptions": { "type": "auto" }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 100000000 },
+              { "color": "red", "value": 1000000000 }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Usage (bytes)" },
+            "properties": [
+              { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } }
+            ]
+          }
+        ]
+      },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 26 },
+      "id": 30,
+      "options": {
+        "cellHeight": "sm",
+        "footer": { "show": false },
+        "showHeader": true,
+        "sortBy": [{ "desc": true, "displayName": "Usage (bytes)" }]
+      },
+      "title": "Top Clients by Data Usage",
+      "type": "table",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT sum(usage_bytes) AS \"Usage (bytes)\", last(ip) AS \"IP\", last(description) AS \"Name\", last(vlan) AS \"VLAN\", last(manufacturer) AS \"Manufacturer\" FROM meraki_clients WHERE $__timeFilter(time) GROUP BY client_mac ORDER BY \"Usage (bytes)\" DESC LIMIT 20"
+        }
+      ]
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "Client association and disassociation events over time",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "lineWidth": 2,
+            "stacking": { "group": "A", "mode": "none" }
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 26 },
+      "id": 31,
+      "options": {
+        "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "title": "Client Connection Events",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT count(*) AS \"Associations\" FROM meraki_events WHERE event_type='association' AND $__timeFilter(time) GROUP BY time($__interval) fill(0)"
+        },
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "B",
+          "rawQuery": true,
+          "query": "SELECT count(*) AS \"Disassociations\" FROM meraki_events WHERE event_type='disassociation' AND $__timeFilter(time) GROUP BY time($__interval) fill(0)"
+        }
+      ]
+    },
+
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 36 },
+      "id": 104,
+      "title": "Device Health",
+      "type": "row"
+    },
+
+    {
+      "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+      "description": "All devices with current online/offline status",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "custom": { "align": "auto", "cellOptions": { "type": "auto" } },
+          "mappings": [
+            { "options": { "offline": { "color": "red",    "index": 1, "text": "OFFLINE" },
+                           "online":  { "color": "green",  "index": 0, "text": "ONLINE"  },
+                           "dormant": { "color": "yellow", "index": 2, "text": "DORMANT" } },
+              "type": "value" }
+          ],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] }
+        },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Status" },
+            "properties": [{ "id": "custom.cellOptions", "value": { "type": "color-background" } }]
+          }
+        ]
+      },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 37 },
+      "id": 40,
+      "options": {
+        "cellHeight": "sm",
+        "footer": { "show": false },
+        "showHeader": true,
+        "sortBy": [{ "desc": false, "displayName": "Status" }]
+      },
+      "title": "Device Status",
+      "type": "table",
+      "targets": [
+        {
+          "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SELECT last(status) AS \"Status\", last(name) AS \"Name\", last(model) AS \"Model\", last(network_id) AS \"Network\", last(wan1_ip) AS \"WAN IP\", last(last_reported_at) AS \"Last Seen\" FROM meraki_device_status WHERE $__timeFilter(time) GROUP BY serial ORDER BY \"Status\" ASC"
+        }
+      ]
+    }
+  ],
+
+  "refresh": "5m",
+  "schemaVersion": 38,
+  "tags": ["meraki", "network-security", "cisco"],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+        "definition": "SELECT DISTINCT network_name FROM meraki_events",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Network",
+        "multi": true,
+        "name": "network",
+        "options": [],
+        "query": "SELECT DISTINCT network_name FROM meraki_events",
+        "refresh": 2,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": { "type": "datasource", "uid": "MERAKI_DS" },
+        "definition": "SELECT DISTINCT event_type FROM meraki_events",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Event Type",
+        "multi": true,
+        "name": "event_type",
+        "options": [],
+        "query": "SELECT DISTINCT event_type FROM meraki_events",
+        "refresh": 2,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": { "from": "now-24h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Cisco Meraki — Security Operations",
+  "uid": "meraki-security-ops",
+  "version": 1
+}

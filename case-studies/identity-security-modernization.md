@@ -9,343 +9,78 @@
 
 ## Overview
 
-As the organisation expanded its reliance on cloud services, identity became the primary control plane for security enforcement. Traditional perimeter-based security models were no longer sufficient, and authentication patterns heavily reliant on passwords introduced unnecessary exposure to credential-based attacks.
+As the organisation expanded its reliance on cloud services, identity became the primary control plane for security enforcement. Traditional perimeter-based security models were no longer sufficient, and authentication patterns heavily reliant on passwords created unnecessary exposure to credential-based attacks.
 
-This case study documents the modernization of identity security through the implementation of:
+This case study documents the modernization of identity security through the implementation of passwordless authentication (Windows Hello for Business, FIDO2, Passkeys), strong MFA enforcement, Conditional Access policies based on identity, device, and context, and Temporary Access Pass for secure onboarding and recovery.
 
-* Passwordless authentication (Windows Hello for Business, FIDO2, Passkeys)
-* Strong MFA enforcement
-* Conditional Access policies based on identity, device, and context
-* Temporary Access Pass (TAP) for secure onboarding and recovery
-
-The initiative focused on reducing credential exposure, improving authentication assurance, and aligning identity controls with a Zero Trust model while maintaining usability for end users.
+The goal was reducing credential exposure and improving authentication assurance, while keeping the rollout from being the thing that caused a week of helpdesk tickets.
 
 ---
 
 ## Context & Motivation
 
-Several key drivers led to this initiative:
+Credential phishing, reuse, and token theft were the dominant attack methods we were seeing, and password-based authentication was still the primary pattern for most users. MFA enforcement was inconsistent across services, and without centralised telemetry and policy enforcement, SOC visibility into identity threats was fragmented at best.
 
-* **Password-based authentication remained a primary risk vector**
-  Credential phishing, reuse, and token theft continued to be dominant attack methods.
-
-* **Inconsistent MFA enforcement across services**
-  Some applications enforced MFA, while others relied on weaker authentication patterns.
-
-* **Limited visibility into authentication risk**
-  Without consistent telemetry and policy enforcement, SOC visibility into identity threats was fragmented.
-
-* **Shift to cloud-first access model**
-  With SaaS adoption increasing, identity became the new perimeter, requiring stronger and more consistent controls.
-
-* **Alignment with Zero Trust principles**
-  The organisation needed to move toward:
-
-  * Strong identity assurance
-  * Device trust enforcement
-  * Context-aware access decisions
+The shift to cloud-first access also changed the threat model. With SaaS adoption increasing, identity was the new perimeter, and the controls needed to reflect that. The direction was Zero Trust: strong identity assurance, device trust enforcement, and context-aware access decisions rather than implicit trust based on network location.
 
 ---
 
 ## Security Challenge
 
-The primary challenge was implementing stronger identity controls without creating friction that would:
+The challenge was not the technical implementation. The challenge was doing it without causing enough friction that users found workarounds, helpdesk volume spiked, or legacy workflows broke in ways that were hard to unpick.
 
-* Disrupt business operations
-* Drive users to insecure workarounds
-* Increase support overhead
-
-Specific tensions included:
-
-* Moving away from passwords without breaking legacy workflows
-* Enforcing MFA consistently without causing login fatigue
-* Introducing Conditional Access without over-blocking legitimate access
-* Supporting onboarding and recovery securely without reverting to weak controls
+Specific tensions: moving away from passwords without breaking legacy app compatibility, enforcing MFA consistently without causing login fatigue, introducing Conditional Access without over-blocking legitimate access patterns, and supporting onboarding and account recovery securely without reverting to temporary passwords.
 
 ---
 
 ## Assessment and Planning
 
-The assessment phase focused on identifying risk exposure and defining a staged rollout strategy.
+The assessment phase mapped out where the actual risk exposure sat. High-risk user personas (privileged roles with PIM access, external B2B users, users accessing sensitive systems) were identified as the starting point for enforcement. Password-only access paths were catalogued, application sensitivity was rated, and device compliance posture via Intune was reviewed to understand what the baseline actually looked like before any policy changes.
 
-### Key assessment areas:
-
-* **High-risk user personas**
-
-  * Privileged roles (admin access via PIM)
-  * External access (B2B users)
-  * Users accessing sensitive systems
-
-* **Authentication weaknesses**
-
-  * Password-only access paths
-  * Lack of phishing-resistant authentication methods
-
-* **Application sensitivity**
-
-  * Critical SaaS platforms (M365, internal tools, vendor platforms)
-  * Systems requiring stronger assurance levels
-
-* **Device trust posture**
-
-  * Managed vs unmanaged devices
-  * Compliance alignment with Intune
+Design principles going in were defense in depth (passwordless plus MFA plus Conditional Access, not just one layer), phishing-resistant authentication as the target state, context-aware access, and progressive rollout. Pilot before enforcing broadly.
 
 ---
 
-### Design Principles
+## Implementation
 
-The implementation was guided by:
+### Authentication Standards
 
-* **Defense in depth**
-  Passwordless + MFA + Conditional Access
+Authentication tiers were defined before any policy was written. Standard users: MFA required, passwordless encouraged. Privileged users: mandatory phishing-resistant authentication, PIM enforced for elevation. High-impact systems: strongest authentication requirements with Conditional Access enforcement.
 
-* **Phishing-resistant authentication**
-  Prioritising:
+### MFA Rollout
 
-  * Windows Hello for Business (biometric/PIN bound to device)
-  * FIDO2 security keys / passkeys
+Introduced MFA enforcement via Conditional Access with pilot groups first to validate login experience and application compatibility, then expanded in controlled waves. Watching sign-in interruption rates and risky sign-in trends during pilots caught issues early enough to fix before broad rollout.
 
-* **Context-aware access**
-  Based on:
+### Passwordless Enablement
 
-  * Device compliance
-  * Location (geo-blocking)
-  * Risk signals
+**Windows Hello for Business** was the primary passwordless method for managed endpoints. Device-bound authentication using PIN or biometric, resistant to phishing and credential replay. This ended up being the most impactful change in terms of reducing password dependency at scale.
 
-* **Progressive rollout**
-  Pilot → staged enforcement → full deployment
+**FIDO2 security keys and passkeys** were used for high-risk users and break-glass scenarios where WHfB wasn't suitable. For scenarios where passkeys were supported across platforms, they were enabled to support modern authentication flows.
 
----
+**Temporary Access Pass** replaced the previous pattern of temporary passwords and service desk intervention for onboarding and MFA reset scenarios. TAP made the recovery process secure without creating a gap in the authentication model.
 
-## Implementation Strategy
+### Conditional Access Enforcement
 
-### 1. Baseline Identity Posture
+Conditional Access became the core policy engine. Policies covered requiring compliant devices, requiring MFA or phishing-resistant authentication, blocking access from outside Australia, and applying session controls for high-risk scenarios. Every policy went through pilot groups before broader enforcement.
 
-* Reviewed sign-in logs and authentication methods
-* Identified:
+Integration with Intune meant device compliance was a real enforcement gate, not just a reporting metric.
 
-  * Password-heavy workflows
-  * MFA gaps
-  * Risky sign-in patterns
+### SOC Integration
+
+Centralised sign-in logs and Conditional Access policy outcomes into Sentinel for SOC monitoring. Risky sign-ins, MFA failures, and CA blocks became visible and queryable. This directly improved triage speed and correlation with endpoint and email threats during investigations.
 
 ---
 
-### 2. Define Authentication Standards
+## Outcomes
 
-Authentication tiers were defined:
+Reduced reliance on passwords, lower exposure to phishing and credential theft, stronger authentication assurance across all access paths. SOC gained clear insight into authentication attempts, policy enforcement outcomes, and risk signals. Password reset overhead dropped and sign-in experience improved for users on passwordless flows.
 
-* **Standard users**
+From a governance standpoint, identity controls became standardised with a clear enforcement model across all services.
 
-  * MFA required
-  * Passwordless encouraged
+**Key observations:**
 
-* **Privileged users**
-
-  * Mandatory phishing-resistant authentication
-  * PIM enforced for elevation
-
-* **High-impact systems**
-
-  * Strongest authentication requirements
-  * Conditional Access enforcement
+Phased rollout is not optional. Piloting with real users and monitoring sign-in interruption rates before broad enforcement is what makes the difference between a controlled rollout and an incident. Passwordless adoption requires enablement, not just enforcement. Users need guidance, working registration flows, and a recovery path that doesn't create a new gap. Telemetry should be operationalised during pilots, not after full deployment. The feedback you get from monitoring Conditional Access outcomes during a pilot is how you catch misconfigurations before they affect everyone.
 
 ---
 
-### 3. MFA Rollout (Foundation Layer)
-
-* Introduced MFA enforcement via Conditional Access
-* Pilot groups used to validate:
-
-  * Login experience
-  * Application compatibility
-* Expanded in controlled waves
-
----
-
-### 4. Passwordless Enablement
-
-Implemented multiple passwordless methods:
-
-#### Windows Hello for Business (WHfB)
-
-* Device-bound authentication (PIN/biometric)
-* Resistant to phishing and credential replay
-
-#### FIDO2 Security Keys / Passkeys
-
-* Hardware-backed or platform-based authentication
-* Used for:
-
-  * High-risk users
-  * Break-glass scenarios (where appropriate)
-
-#### Passkeys (where supported)
-
-* Enabled modern authentication flows across supported platforms
-
----
-
-### 5. Temporary Access Pass (TAP)
-
-* Introduced TAP for:
-
-  * Secure onboarding
-  * MFA reset scenarios
-  * Passwordless enrollment
-
-* Reduced reliance on:
-
-  * Temporary passwords
-  * Service desk intervention
-
----
-
-### 6. Conditional Access Enforcement
-
-Conditional Access became the core policy engine.
-
-Policies included:
-
-* **Require compliant device**
-
-* **Require MFA or phishing-resistant auth**
-
-* **Block access outside Australia (geo-blocking)**
-
-* **Session controls for high-risk scenarios**
-
-* Applied progressively:
-
-  * Pilot groups
-  * Business units
-  * Full organisation
-
----
-
-### 7. Integration with Endpoint and Device Compliance
-
-* Integrated with Intune:
-
-  * Only compliant devices allowed access
-* Reinforced:
-
-  * Managed device requirement
-  * Browser-based access controls
-
----
-
-### 8. Operationalising Telemetry (SOC Integration)
-
-* Centralised sign-in logs and policy outcomes
-
-* SOC monitoring included:
-
-  * Risky sign-ins
-  * MFA failures
-  * Conditional Access blocks
-
-* Enabled:
-
-  * Faster triage
-  * Better correlation with endpoint and email threats
-
----
-
-## Security Controls Implemented
-
-* **Phishing-resistant authentication**
-
-  * WHfB
-  * FIDO2 / Passkeys
-
-* **MFA enforcement**
-  Across all relevant applications
-
-* **Conditional Access policies**
-
-  * Device-based
-  * Location-based
-  * Risk-based
-
-* **Temporary Access Pass (TAP)**
-  For secure onboarding and recovery
-
-* **Privileged access controls**
-
-  * PIM integration
-  * Just-in-time access
-
-* **Centralised identity telemetry**
-  For SOC monitoring and response
-
----
-
-## Operational Impact
-
-### Improved Security Posture
-
-* Reduced reliance on passwords
-* Lower exposure to phishing and credential theft
-* Stronger authentication assurance across all access paths
-
----
-
-### Increased Visibility
-
-* Clear insight into:
-
-  * Authentication attempts
-  * Policy enforcement outcomes
-  * Risk signals
-
----
-
-### User Experience Improvements
-
-* Faster sign-ins via passwordless methods
-* Reduced password reset overhead
-* More consistent authentication experience
-
----
-
-### Governance Maturity
-
-* Standardised identity controls
-* Clear enforcement model across all services
-* Better alignment between identity, endpoint, and security operations
-
----
-
-## Lessons Learned
-
-* **Phased rollout is critical**
-  Immediate enforcement would have caused disruption
-
-* **Passwordless adoption requires enablement, not just enforcement**
-  Users need guidance and support
-
-* **Conditional Access must be carefully tuned**
-  Overly aggressive policies create friction and exceptions
-
-* **Recovery mechanisms must be secure**
-  TAP significantly improved this area
-
-* **Telemetry should be operationalised early**
-  Monitoring during pilots provided valuable feedback
-
----
-
-## Key Takeaways
-
-Identity modernization is most effective when:
-
-* Authentication strength is increased through passwordless methods
-* Access decisions are context-aware via Conditional Access
-* Identity telemetry is integrated into SOC workflows
-
-A structured, phased approach enables strong security outcomes without disrupting user productivity.
-
----
-* If identity is your primary control plane (true in cloud-first environments)
-* And you implemented CA + WHfB + MFA (
+*Organisational identifiers, client data, and commercially sensitive information have been omitted.*

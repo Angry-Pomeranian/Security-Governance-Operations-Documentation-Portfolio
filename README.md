@@ -36,35 +36,70 @@
   </a>
 </p>
 
-<br>
+## `What the heck is this?`
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:cda41d,50:c7973a,100:c22942&height=80&section=footer&reversal=true"/>
-</p>
+This is my GitHub portfolio; and yes, it's doing a lot of heavy lifting.
 
-<br>
+It covers real work across identity security, cloud telemetry, SIEM detection, infrastructure hardening, and security automation. You'll find technical documentation alongside curated governance examples — think policies, frameworks, and controls reference material; so you get a picture of both the engineering side and the governance side of how I work.
 
-## `> whoami`
+The short version: if you've just asked me "okay but where's the proof?"; this is where you go. Browse around, dig into whatever domain you care about, and see what's actually been built and documented.
 
-This repository is a curated portfolio of **enterprise security engineering** work — spanning identity security, cloud telemetry, SIEM detection, infrastructure hardening, and security automation.
-
-The focus is on **how controls are designed, implemented, and operationalized** — not theoretical frameworks.
+As a bonus, the repo itself is structured to work as a cover letter. The website it links to? Built, designed, and deployed by me too. So if nothing else, you're getting a pretty good sense of how I operate.
 
 <br>
 
 <p align="center">
-
-| 🧭  [Overview](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/tree/main/about) | 👤  [About Me](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/tree/main/about) | 🏗  [Architecture](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/tree/main/architecture) | 🧠  [Diagrams](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/tree/main/diagrams) |
-|:---:|:---:|:---:|:---:|
-| **📁  [Projects](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/tree/main/projects)** | **🔍  [Case Studies](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/tree/main/case-studies)** | **📊  [Reference](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/tree/main/reference)** | **🎓  [Certifications](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/tree/main/certification)** |
-
+  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=7AB8BC&center=true&vCenter=true&width=440&lines=Portfolio+Structure"/>
 </p>
 
 <br>
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:c22942,50:a4466c,100:cda41d&height=80&section=footer&reversal=true"/>
-</p>
+<table width="100%">
+  <tr>
+    <th align="left" bgcolor="#1a0800">Directory</th>
+    <th align="left" bgcolor="#1a0800">Description</th>
+  </tr>
+  <tr>
+    <td bgcolor="#0d1416">📁  <strong><code>about/</code></strong></td>
+    <td bgcolor="#0d1416">Professional overview — security domains, skills matrix with depth ratings, engineering methodology, and certifications in progress</td>
+  </tr>
+  <tr>
+    <td bgcolor="#1a0a0f">📁  <strong><code>projects/</code></strong></td>
+    <td bgcolor="#1a0a0f">Curated project write-ups describing real security implementation work</td>
+  </tr>
+  <tr>
+    <td bgcolor="#0d1416">🏗  <strong><code>architecture/</code></strong></td>
+    <td bgcolor="#0d1416">Security architecture documentation explaining system design and monitoring models</td>
+  </tr>
+  <tr>
+    <td bgcolor="#1a0a0f">📚  <strong><code>case-studies/</code></strong></td>
+    <td bgcolor="#1a0a0f">Detailed implementation narratives — planning, deployment, and lessons learned</td>
+  </tr>
+  <tr>
+    <td bgcolor="#0d1416">🧠  <strong><code>diagrams/</code></strong></td>
+    <td bgcolor="#0d1416">Mermaid architecture diagrams covering the full stack — Sentinel data pipeline, identity auth flow, Umbrella DNS, Proofpoint AI governance, and incident response lifecycle</td>
+  </tr>
+  <tr>
+    <td bgcolor="#1a0a0f">🚨  <strong><code>incident-response/</code></strong></td>
+    <td bgcolor="#1a0a0f">ISO 27001 / NIST SP 800-61 aligned playbooks for account compromise, ransomware, phishing, BEC, data exfiltration, cloud account compromise, privileged access abuse, network intrusion, and malicious code execution</td>
+  </tr>
+  <tr>
+    <td bgcolor="#0d1416">📜  <strong><code>compliance/</code></strong></td>
+    <td bgcolor="#0d1416">Control mapping and implementation guidance for ASD Essential Eight, ISO 27001:2022, and NIST CSF</td>
+  </tr>
+  <tr>
+    <td bgcolor="#1a0a0f">🎓  <strong><code>certification/</code></strong></td>
+    <td bgcolor="#1a0a0f">Study notes, lab guides, and exam resources for SC-300 and AWS Cloud Practitioner</td>
+  </tr>
+  <tr>
+    <td bgcolor="#0d1416">🔄  <strong><code>pipeline/</code></strong></td>
+    <td bgcolor="#0d1416">Automated incident response pipeline — impossible travel detection integrated with Sentinel, Entra ID, and SOAR workflows</td>
+  </tr>
+  <tr>
+    <td bgcolor="#1a0a0f">📦  <strong><code>reference/</code></strong></td>
+    <td bgcolor="#1a0a0f">Technical reference documentation organised by security domain: identity-access, email-security, network-security, endpoint-hardening, automation, and sentinel (connectors, hunting queries, workbooks, ARM templates)</td>
+  </tr>
+</table>
 
 <br>
 
@@ -78,36 +113,34 @@ The focus is on **how controls are designed, implemented, and operationalized** 
   <tr>
     <td width="50%" valign="top" bgcolor="#1a0a0f">
       <h3>🔭  Currently Working On</h3>
-      <p>Advancing enterprise security governance and operational maturity through <strong>ISO 27001 aligned controls, identity security architecture, vulnerability management, SIEM-driven monitoring, and GenAI governance</strong> (shadow AI discovery, DLP in AI workflows, and adaptive access controls).</p>
+      <p>ISO 27001 aligned controls, identity security architecture, vulnerability management, SIEM-driven monitoring, and increasingly <strong>GenAI governance</strong>. Shadow AI discovery, DLP in AI workflows, adaptive access controls. It turns out "we use AI now" is not a security strategy.</p>
     </td>
     <td width="50%" valign="top" bgcolor="#0d1416">
       <h3>👯  Looking to Collaborate On</h3>
-      <p>Security program maturity initiatives, detection engineering, and enterprise security control implementation.</p>
+      <p>Security program maturity, detection engineering, and actually getting controls implemented rather than just documented. If you're building something real and need someone who's done it before, let's talk.</p>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top" bgcolor="#0d1416">
       <h3>🌱  Currently Learning</h3>
-      <p>Advanced security architecture, cloud monitoring pipelines, and detection engineering at scale.</p>
+      <p>SC-300 is on the desk. Also going deeper on cloud monitoring pipelines and detection engineering at scale, because there's always another log source that needs onboarding.</p>
     </td>
     <td width="50%" valign="top" bgcolor="#1a0a0f">
       <h3>💬  Ask Me About</h3>
-      <p>ISO 27001 programs, Conditional Access architecture, Microsoft Sentinel, vulnerability management lifecycle, security control implementation, and GenAI governance (Proofpoint AI governance, CASB, DLP in AI workflows).</p>
+      <p>ISO 27001, Conditional Access architecture, Microsoft Sentinel, vulnerability management, and GenAI governance (Proofpoint, CASB, DLP in AI workflows). Also AWS telemetry into Sentinel if you want to hear about something that took way too many hours to get right.</p>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top" bgcolor="#1a0a0f">
       <h3>🤝  Looking For Help With</h3>
-      <p>Scaling security architecture and automation across hybrid and cloud environments.</p>
+      <p>Scaling security architecture and automation across hybrid and cloud environments. Specifically the part where everything is slightly different from the documentation.</p>
     </td>
     <td width="50%" valign="top" bgcolor="#0d1416">
       <h3>⚡  Fun Fact</h3>
-      <p>Many of the security capabilities here were <strong>self-driven</strong> — researching, designing, testing, and implementing controls from the ground up across operational environments.</p>
+      <p>Most of what's in this repo was <strong>self-driven</strong>. No playbook handed to me, just a problem, some documentation, and stubbornness. That's kind of the whole vibe here.</p>
     </td>
   </tr>
 </table>
-
-<br>
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:5f888c,50:3d6e72,100:c22942&height=80&section=footer&reversal=true"/>
@@ -234,14 +267,6 @@ The focus is on **how controls are designed, implemented, and operationalized** 
   <a href="https://www.regular-expressions.info/"><img src="https://img.shields.io/badge/Regex-5f888c?style=for-the-badge&logoColor=white"/></a>
 </p>
 
-<br>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:cda41d,33:c22942,66:5f888c,100:a4466c&height=80&section=footer&reversal=true"/>
-</p>
-
-<br>
-
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=C22942&center=true&vCenter=true&width=560&lines=Security+Domains+%26+Proficiency"/>
 </p>
@@ -260,156 +285,9 @@ The focus is on **how controls are designed, implemented, and operationalized** 
 | 🩺  **Vulnerability Management** | Tenable-based scan and remediation lifecycle, patch tracking, and risk prioritisation | ![82%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━░░░░░░-82%25-c22942?style=flat-square&labelColor=0d1416) |
 | ⚙  **Security Automation** | PowerShell and YAML automation, Azure Logic Apps, ARM templates, and operational runbooks | ![80%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━░░░░░░-80%25-324749?style=flat-square&labelColor=1a0a0f) |
 | ✉  **Email & Data Security** | Proofpoint AI governance, shadow AI discovery (CASB), GenAI DLP, and adaptive access controls | ![80%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━░░░░░░-80%25-a4466c?style=flat-square&labelColor=1a0a0f) |
-| 🔑  **Privileged Access** | HashiCorp Vault, BeyondTrust, Delinea, and Passwordstate PAM control implementation | ![78%](https://img.shields.io/badge/━━━━━━━━━━━━━━━░░░░░░░-78%25-5f888c?style=flat-square&labelColor=0d1416) |
-| 🌐  **Network Security** | Cisco Umbrella DNS security, Palo Alto and FortiGate firewall policies, and bypass prevention | ![75%](https://img.shields.io/badge/━━━━━━━━━━━━━━━░░░░░░░-75%25-8c2f1d?style=flat-square&labelColor=0d1416) |
+| 🔑  **Privileged Access** | HashiCorp Vault, BeyondTrust, Delinea, and Passwordstate PAM control implementation | ![78%](https://img.shields.io/badge/━━━━━━━━━━━━━░░░░░░░░░-78%25-5f888c?style=flat-square&labelColor=0d1416) |
+| 🌐  **Network Security** | Cisco Umbrella DNS security, Palo Alto and FortiGate firewall policies, and bypass prevention | ![75%](https://img.shields.io/badge/━━━━━━━━━━━━━░░░░░░░░░-75%25-8c2f1d?style=flat-square&labelColor=0d1416) |
 
-</p>
-
-<br>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:5f888c,50:cda41d,100:c22942&height=80&section=footer&reversal=true"/>
-</p>
-
-<br>
-
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=CDA41D&center=true&vCenter=true&width=500&lines=Security+Architecture+Overview"/>
-</p>
-
-<br>
-
-```mermaid
-%%{init: {'theme':'base','themeVariables':{
-  'primaryColor':'#141f21',
-  'primaryTextColor':'#d4e0e2',
-  'primaryBorderColor':'#cda41d',
-  'lineColor':'#5f888c',
-  'secondaryColor':'#0f1719',
-  'tertiaryColor':'#0d1416',
-  'background':'#080c0d',
-  'mainBkg':'#141f21',
-  'nodeBorder':'#cda41d',
-  'clusterBkg':'#0f1719',
-  'titleColor':'#cda41d',
-  'edgeLabelBackground':'#0d1416',
-  'fontFamily':'Share Tech Mono'
-}}}%%
-flowchart LR
-  A["`**User Device**
-  Endpoint`"]
-  B["`**Identity Provider**
-  Microsoft Entra ID`"]
-  C["`**Conditional Access**
-  Device Compliance`"]
-  D["`**Cloud Infrastructure**
-  AWS · Azure`"]
-  E["`**Security Telemetry**
-  CloudTrail · GuardDuty
-  VPC Flow Logs`"]
-  F["`**SIEM Platform**
-  Microsoft Sentinel`"]
-  G["`**Detection Engineering**
-  KQL · Threat Hunting`"]
-  H["`**Incident Response**
-  Automation Playbooks`"]
-  A --> B --> C --> D --> E --> F --> G --> H
-```
-
-<p align="center"><i>Identity controls → telemetry ingestion → SIEM detection → automated response</i></p>
-
-<br>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:a4466c,50:c22942,100:8c2f1d&height=80&section=footer&reversal=true"/>
-</p>
-
-<br>
-
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=E87090&center=true&vCenter=true&width=560&lines=Security+Engineering+Capability+Map"/>
-</p>
-
-<br>
-
-```mermaid
-%%{init: {'theme':'base','themeVariables':{
-  'primaryColor':'#ffe6ea',
-  'primaryTextColor':'#0e1612',
-  'primaryBorderColor':'#fe486a',
-  'lineColor':'#8fb7a5',
-  'secondaryColor':'#fdf0e7',
-  'tertiaryColor':'#eff5f3'
-}}}%%
-mindmap
-  root((Security<br>Engineering))
-    Identity
-      Entra ID
-      Conditional Access
-      Intune
-      Windows Hello
-      Passkeys
-      Entra PIM
-    Detection
-      Sentinel
-      KQL
-      Threat Hunting
-      Alert Tuning
-      CrowdStrike XDR
-    Cloud
-      CloudTrail
-      GuardDuty
-      VPC Flow Logs
-      CloudWatch
-      SCEPman
-    Automation
-      PowerShell
-      YAML
-      Ansible
-      Azure DevOps
-    Hardening
-      CIS Benchmarks
-      AppLocker
-      Edge Policies
-      Chrome Policies
-      EPM
-    Endpoint
-      CrowdStrike XDR
-      Device Compliance
-    Email & Data
-      Proofpoint
-      CASB
-      DLP
-      DSPM
-      CyberAware
-    Network
-      Cisco Umbrella
-      Palo Alto
-      GlobalProtect
-      Fortigate
-      ClearPass
-    Vuln Mgmt
-      Tenable.io
-      Red Hat Satellite
-      Datto RMM
-      Halcyon
-    Priv Access
-      HashiCorp Vault
-      BeyondTrust
-      Delinea
-      Passwordstate
-    Governance
-      ISO 27001
-      Risk Management
-      Disaster Recovery
-      OneTrust
-      Drata
-```
-
-<br>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:cda41d,50:e8b830,100:8c2f1d&height=80&section=footer&reversal=true"/>
 </p>
 
 <br>
@@ -477,120 +355,6 @@ mindmap
 <br>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=7AB8BC&center=true&vCenter=true&width=440&lines=Detection+Engineering"/>
-</p>
-
-<br>
-
-**Sentinel — Brute Force Detection**
-
-```kql
-SecurityEvent
-| where EventID == 4625
-| summarize FailedAttempts = count() by Account, bin(TimeGenerated, 5m)
-| where FailedAttempts > 10
-```
-
-> 🔴  Detects brute-force authentication attempts across identity infrastructure.
-
-<br>
-
-**AWS CloudTrail — Console Login Failure**
-
-```kql
-AWSCloudTrail
-| where EventName == "ConsoleLogin"
-| where ResponseElements contains "Failure"
-```
-
-> ☁  Detects suspicious console login attempts within cloud environments.
-
-<br>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:8c2f1d,50:c22942,100:a4466c&height=80&section=footer&reversal=true"/>
-</p>
-
-<br>
-
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=CDA41D&center=true&vCenter=true&width=400&lines=Portfolio+Structure"/>
-</p>
-
-<br>
-
-<table width="100%">
-  <tr>
-    <th align="left" bgcolor="#1a0800">Directory</th>
-    <th align="left" bgcolor="#1a0800">Description</th>
-  </tr>
-  <tr>
-    <td bgcolor="#0d1416">📁  <strong><code>about/</code></strong></td>
-    <td bgcolor="#0d1416">Professional overview — security domains, skills matrix with depth ratings, engineering methodology, and certifications in progress</td>
-  </tr>
-  <tr>
-    <td bgcolor="#1a0a0f">📁  <strong><code>projects/</code></strong></td>
-    <td bgcolor="#1a0a0f">Curated project write-ups describing real security implementation work</td>
-  </tr>
-  <tr>
-    <td bgcolor="#0d1416">🏗  <strong><code>architecture/</code></strong></td>
-    <td bgcolor="#0d1416">Security architecture documentation explaining system design and monitoring models</td>
-  </tr>
-  <tr>
-    <td bgcolor="#1a0a0f">📚  <strong><code>case-studies/</code></strong></td>
-    <td bgcolor="#1a0a0f">Detailed implementation narratives — planning, deployment, and lessons learned</td>
-  </tr>
-  <tr>
-    <td bgcolor="#0d1416">🧠  <strong><code>diagrams/</code></strong></td>
-    <td bgcolor="#0d1416">Mermaid architecture diagrams covering the full stack — Sentinel data pipeline, identity auth flow, Umbrella DNS, Proofpoint AI governance, and incident response lifecycle</td>
-  </tr>
-  <tr>
-    <td bgcolor="#1a0a0f">🚨  <strong><code>incident-response/</code></strong></td>
-    <td bgcolor="#1a0a0f">ISO 27001 / NIST SP 800-61 aligned playbooks for account compromise, ransomware, phishing, BEC, data exfiltration, cloud account compromise, privileged access abuse, network intrusion, and malicious code execution</td>
-  </tr>
-  <tr>
-    <td bgcolor="#0d1416">📜  <strong><code>compliance/</code></strong></td>
-    <td bgcolor="#0d1416">Control mapping and implementation guidance for ASD Essential Eight, ISO 27001:2022, and NIST CSF</td>
-  </tr>
-  <tr>
-    <td bgcolor="#1a0a0f">🎓  <strong><code>certification/</code></strong></td>
-    <td bgcolor="#1a0a0f">Study notes, lab guides, and exam resources for SC-300 and AWS Cloud Practitioner</td>
-  </tr>
-  <tr>
-    <td bgcolor="#0d1416">🔄  <strong><code>pipeline/</code></strong></td>
-    <td bgcolor="#0d1416">Automated incident response pipeline — impossible travel detection integrated with Sentinel, Entra ID, and SOAR workflows</td>
-  </tr>
-  <tr>
-    <td bgcolor="#1a0a0f">📦  <strong><code>reference/</code></strong></td>
-    <td bgcolor="#1a0a0f">Technical reference documentation organised by security domain: identity-access, email-security, network-security, endpoint-hardening, automation, and sentinel (connectors, hunting queries, workbooks, ARM templates)</td>
-  </tr>
-</table>
-
-<br>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:5f888c,33:cda41d,66:c22942,100:a4466c&height=80&section=footer&reversal=true"/>
-</p>
-
-<br>
-
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/output/github-snake-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/output/github-snake.svg">
-    <img alt="github contribution snake" src="https://raw.githubusercontent.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/output/github-snake.svg">
-  </picture>
-</p>
-
-<br>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:5f888c,25:3d6e72,50:c22942,75:a4466c,100:cda41d&height=160&section=footer&text=Nicole's+Cybersecurity+Portfolio&fontSize=20&fontColor=ffffff&animation=fadeIn&fontAlignY=62&desc=Built+to+demonstrate+practical+implementation+of+enterprise+security+controls&descSize=13&descColor=f0e6b2&descAlignY=80"/>
-</p>
-
----
-
-<p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=C22942&center=true&vCenter=true&width=400&lines=Contributing+%26+Reporting"/>
 </p>
 
@@ -601,3 +365,15 @@ AWSCloudTrail
 If you believe any content in this repository inadvertently exposes sensitive information or have a security concern, please follow the responsible disclosure process outlined in [`SECURITY.md`](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/blob/main/SECURITY.md) rather than opening a public issue.
 
 **Do not open public issues for security concerns.**
+
+<br>
+
+<p align="center"><sub>↓ My GitHub commit activity snake</sub></p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/output/github-snake-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/output/github-snake.svg">
+    <img alt="github contribution snake" src="https://raw.githubusercontent.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/output/github-snake.svg">
+  </picture>
+</p>

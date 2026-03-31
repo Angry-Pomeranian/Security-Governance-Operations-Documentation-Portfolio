@@ -1,61 +1,32 @@
-# Sentinel
+# Microsoft Sentinel Reference
 
-This repository contains automation artifacts, workbooks, and analytic rules for **Microsoft Sentinel** (Azure-native SIEM/SOAR).  
-It supports our internal deployment, detection engineering initiatives, and SOC handover readiness.
-
----
-## 📁 Repository Structure
-```
-
-/
-├── workbooks/
-│   ├── Microsoft/           # Custom Microsoft Sentinel workbooks
-│   └── <other vendors>/     # Future workbook sets (e.g., Defender, AWS)
-│
-├── rules/                   # Analytic rules (KQL-based detections)
-│   ├── scheduled/
-│   ├── nrt/
-│   └── fusion/
-│
-├── scripts/                 # KQL queries, automation helpers, enrichment scripts
-├── templates/               # Deployment templates (ARM/Bicep)
-└── docs/                    # Internal documentation
-
-```
-
----
-## ✅ Current Tasks
-- [ ] **Rename `workbooks/Microsoft-workbooks/` ➜ `workbooks/Microsoft/`**
-- [ ] **Fine-tune existing Microsoft Sentinel workbook JSON files**
-- [ ] **Finish uploading remaining workbook artifacts**
-  
-  ![Workbook Progress](https://github.com/user-attachments/assets/338ecb4c-4372-4c07-91df-e4d66f5292a3)
-
----
-## 🛠️ Upcoming Work
-- [ ] **Begin developing analytic rules under `rules/`**
-  - Focus areas:
-    - Identity misuse (risky sign-ins, impossible travel, privilege abuse)
-    - Endpoint anomalies (CrowdStrike, Defender)
-    - Azure resource abuse and misconfigurations
-
-  ![Rule Development](https://github.com/user-attachments/assets/d8fdfc38-97f6-4b37-9233-480fe9e681d9)
-
----
-## 🔒 Internal Use Only
-> This repository is **private** and intended for internal use only.  
-> It supports production readiness and collaboration between engineering and security teams.
-- Do **not** share externally without approval.
-
----
-## 📌 Notes
-- All workbooks must validate within the Sentinel portal or template deployment.
-- Detection rules should follow naming and tagging conventions agreed with the SOC.
-- Future plans include onboarding `Log Analytics Tables`, enrichment playbooks, and custom workbook templates.
+Documentation, deployment artifacts, detection content, and operational resources for Microsoft Sentinel. This covers both automated and manual deployment approaches, KQL hunting and analytic content, and workbook development.
 
 ---
 
-## 🔐 License
+## Directory Structure
 
-Private – no external distribution.
-```
+| Directory | Contents |
+|---|---|
+| `automate-deployment/` | Scripted connector deployment including AWS CloudTrail, GuardDuty, and VPC Flow Logs via S3/SQS ingestion pipelines |
+| `manual/` | Step-by-step connector setup and configuration guides for manual Sentinel deployments |
+| `hunting/` | Threat hunting queries organised by scenario and threat actor technique |
+| `queries/` | KQL reference queries for investigation, triage, and data validation |
+| `templates/` | ARM deployment templates for Sentinel resources and connector configuration |
+| `workbooks/` | Custom Sentinel workbooks for operational monitoring and governance reporting |
+
+---
+
+## Hunting Content
+
+Hunting queries are organised by detection scenario. Current coverage includes:
+
+- **Kali Linux WSL Execution Detection** — identifies Kali Linux execution patterns via Windows Subsystem for Linux, surfacing potential attacker tooling running within managed endpoints
+
+---
+
+## Related
+
+- AWS telemetry onboarding case study: [`case-studies/aws-cloud-telemetry-centralization.md`](../../case-studies/aws-cloud-telemetry-centralization.md)
+- SIEM foundation case study: [`case-studies/siem-monitoring-foundation.md`](../../case-studies/siem-monitoring-foundation.md)
+- Incident response playbooks: [`incident-response/`](../../incident-response/)

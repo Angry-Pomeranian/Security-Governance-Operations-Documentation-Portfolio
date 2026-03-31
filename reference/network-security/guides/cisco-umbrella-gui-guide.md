@@ -1,9 +1,0 @@
-<img width="2400" height="1350" alt="1_Unlock-the-Secrets-of-Cisco-Umbrella-Dive-into-our-Web-GUI-Guide" src="https://github.com/user-attachments/assets/93022ed7-6d99-4dec-a68f-6ac27d3c3549" />
-<img width="2400" height="1350" alt="2_What-is-Cisco-Umbrella" src="https://github.com/user-attachments/assets/e8f8f9c3-817a-4abf-b478-25e5d36fbe57" />
-<img width="2400" height="1350" alt="3_Navigating-the-Cisco-Umbrella-Dashboard-Your-gateway-to-security-insights" src="https://github.com/user-attachments/assets/b0a89aa6-befb-4a8c-b5c4-8279dfae3790" />
-<img width="2400" height="1868" alt="4_Your-Admin-Tab-Unveiled-Tailored-Features-Just-for-You" src="https://github.com/user-attachments/assets/5f2942ef-53d2-46cf-9e45-082c34840d66" />
-<img width="2400" height="1810" alt="5_Deployments-Core-Identities-Roaming-Computers-Dashboard" src="https://github.com/user-attachments/assets/45a824af-76df-45d8-a65d-47d5a089e60a" />
-<img width="2400" height="1490" alt="6_Stay-Secure-in-Real-Time-Monitoring-Network-Activity-and-Security-Events" src="https://github.com/user-attachments/assets/165aee12-b5fb-4271-aab2-4d07610874b3" />
-<img width="2400" height="1934" alt="7_Generating-Reports-and-Analyzing-Data-Total-Requests-dashboard" src="https://github.com/user-attachments/assets/69f8d6dd-693b-4d74-bcfa-c13d77b16218" />
-<img width="2400" height="1350" alt="8_Integrating-Cisco-Umbrella-with-Other-Security-Tools" src="https://github.com/user-attachments/assets/e5650e3c-6a8c-4151-b847-aad99bd813cb" />
-<img width="2400" height="1360" alt="9_Best-Practices-and-Troubleshooting" src="https://github.com/user-attachments/assets/02f37514-670f-41b0-abe9-5bb6c3861c5b" />

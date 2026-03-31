@@ -10,324 +10,84 @@
 
 ## Overview
 
-The organisation required a centralized SIEM capability to unify monitoring across identity, cloud, endpoint, and network systems. While security telemetry already existed across multiple platforms, it was fragmented, inconsistently ingested, and difficult to operationalize for investigation or reporting.
+The organisation needed a centralised SIEM capability to unify monitoring across identity, cloud, endpoint, and network systems. Security telemetry already existed across multiple platforms, but it was fragmented, inconsistently ingested, and difficult to actually use for investigation or reporting.
 
-This case study documents the process of standing up Microsoft Sentinel as a SIEM platform from the ground up, with a focus on the **practical challenges of initial deployment**, including:
-
-* Log source onboarding complexity
-* Connector inconsistencies and ingestion failures
-* Data normalization issues
-* Detection content immaturity
-* Lack of standardized operational workflows
-
-The work transitioned the organisation from fragmented monitoring to a structured SIEM foundation capable of supporting both SOC operations and governance reporting.
+This case study documents the process of standing up Microsoft Sentinel from scratch, with an honest focus on what that actually involves: getting connectors to work reliably, dealing with data that arrives in formats you can't query, building detection content incrementally, and making the platform something analysts actually trust rather than something that generates noise.
 
 ---
 
 ## Context & Motivation
 
-The need for a SIEM platform was driven by several operational gaps:
+Analysts were pivoting between multiple tools to investigate a single event, which was slow and inconsistent. There was no unified platform for correlating events, tracking incidents, or producing consistent reporting. Leadership visibility was poor because data was siloed. And with an expanding AWS and SaaS footprint, log volume and complexity had outpaced any manual monitoring approach.
 
-* **Fragmented monitoring workflows**
-  Analysts were required to pivot across multiple tools (endpoint, cloud, email, network) to investigate a single event.
-
-* **No centralized visibility layer**
-  There was no unified platform to:
-
-  * Correlate events
-  * Track incidents
-  * Perform consistent investigations
-
-* **Inconsistent reporting**
-  Leadership reporting and operational insights lacked consistency due to siloed data.
-
-* **Growing cloud footprint**
-  With increased use of AWS and SaaS platforms, log volume and complexity outpaced manual monitoring approaches.
+The goal was a platform that could do all of this. The reality was that getting there required significantly more troubleshooting than the documentation suggests.
 
 ---
 
 ## Security Challenge
 
-The primary challenge was not just deploying a SIEM, but making it **actually usable and reliable**.
+The primary challenge was not deploying Sentinel. That part is straightforward. The challenge was making it actually usable and reliable, which turned out to be a much longer process than expected.
 
-Key difficulties included:
+Connectors would show as connected but not ingest data. Logs would arrive in formats that were difficult to query without significant normalisation work. Detection content could not be built meaningfully until the data structure was understood. And analysts could not trust the platform until there was a clear model for validating that what they were seeing was complete and current.
 
-* **Getting logs into Sentinel reliably**
+The specific issues that caused the most time:
 
-  * Connectors appearing configured but not ingesting
-  * Delays in data flow
-  * Misconfigured permissions or roles
+**Ingestion reliability.** AWS connector setup (CloudTrail, GuardDuty, S3) required working across trails, bucket configuration, IAM role trust relationships, and connector settings simultaneously. Any one of those being misconfigured meant logs appeared to be configured but weren't flowing. The "connected" status in the connector UI is not a reliable indicator of working ingestion. Every source needs to be validated with real data.
 
-* **Inconsistent ingestion patterns**
+**Inconsistent source formats.** Each log source had different field naming conventions and event structures. Writing a query that worked across sources required understanding those differences upfront, which required spending time just exploring and mapping data before any detection work could happen.
 
-  * Each data source had different setup requirements
-  * No standard onboarding process
-
-* **Unusable raw data**
-
-  * Logs arriving in formats that were difficult to query
-  * Field inconsistencies across sources
-
-* **Lack of detection maturity**
-
-  * No baseline analytics
-  * No structured hunting queries
-  * No correlation logic
-
-* **Operational uncertainty**
-
-  * Analysts unsure what data could be trusted
-  * No clear triage workflows
+**No baseline detection maturity.** The SIEM had data (eventually), but no usable intelligence. Analytics rules, hunting queries, and correlation logic all had to be built from scratch, which meant prioritising what mattered most before writing anything.
 
 ---
 
-## Assessment and Planning
+## Implementation
 
-### Key Findings
+### Prioritisation
 
-* **Data source onboarding was the biggest blocker**
+Onboarding sequence was determined by risk and investigation value, not connector availability. Identity (Entra ID sign-in logs) and cloud (AWS CloudTrail, GuardDuty) were first because those sources had the highest concentration of interesting events. Endpoint (CrowdStrike) and email (Proofpoint) followed.
 
-  * AWS (CloudTrail, GuardDuty, S3) required multi-step setup:
+### Connector Deployment and Troubleshooting
 
-    * Trails
-    * Buckets
-    * IAM roles
-    * Connector configuration
+Every integration required reviewing documentation, validating permissions, and testing ingestion manually before treating it as done. Common issues included incorrect IAM role trust relationships for AWS sources, misconfigured S3 bucket permissions, logs not being written to expected paths, and connectors showing connected status without actual data flow. Iteration was required on most sources.
 
-* **Connector reliability varied**
+### Ingestion Validation Model
 
-  * Some connectors were near plug-and-play
-  * Others required troubleshooting across multiple layers
+A structured validation approach was introduced rather than relying on connector status indicators. Checks included confirming log presence in Sentinel tables, validating event timestamps and expected volume, confirming field completeness, and comparing source system logs against Sentinel ingestion to identify gaps. This caught silent failures that would otherwise have produced blind spots in detection.
 
-* **No ingestion validation model**
+```kql
+// Check last ingest time per table to identify stale sources
+union withsource=TableName *
+| summarize LastEvent = max(TimeGenerated) by TableName
+| where LastEvent < ago(2h)
+| order by LastEvent asc
+```
 
-  * No consistent method to confirm:
+### Data Normalisation and Query Usability
 
-    * Logs are flowing
-    * Logs are complete
-    * Logs are queryable
+Early ingestion revealed field inconsistencies that made cross-source queries difficult. Effort was put into standardising key fields where possible (user identifiers, IP addresses, event types) and building baseline KQL queries to explore data structure and identify gaps before building detection logic on top of it.
 
-* **Detection and hunting content did not exist**
+### Detection and Hunting Content
 
-  * SIEM had data (in some cases), but no usable intelligence
+Detection was built progressively rather than trying to build everything at once. Initial focus was basic anomaly detection and high-risk activity patterns. Expanded into cloud activity monitoring for AWS API usage, identity anomaly detection for unusual sign-in behaviour, and endpoint alert correlation. Hunting queries were developed to explore unknown patterns and validate that detection logic was firing correctly.
 
----
+### Workbooks and Dashboards
 
-### Design Priorities
+Workbooks were built for three distinct audiences: operational monitoring (ingestion health, log volume trends), SOC visibility (incident trends, alert distribution), and management reporting (high-level posture, risk trends). Keeping these separate rather than trying to build one dashboard for everyone made each more useful.
 
-* **Get ingestion stable before detection**
-* **Focus on high-value log sources first**
-* **Standardize onboarding and validation**
-* **Build detection content iteratively**
-* **Design for analyst usability, not just data collection**
+### SOC Workflow Enablement
+
+Basic operational processes were established alongside the platform: triage workflows for alerts, investigation steps using Sentinel data, and a feedback loop from analyst findings back into detection improvements. The detection tuning cycle became useful once analysts were actually working in the platform regularly.
 
 ---
 
-## Implementation Strategy
+## Outcomes
 
-### 1. Prioritize High-Value Log Sources
+Single platform for cross-domain monitoring, with reduced need to pivot between tools during investigations. Analysts could follow repeatable workflows with consistent access to the context they needed. Detection logic improved over time as hunting informed analytics tuning. New integrations became progressively easier after the initial patterns and validation model were established.
 
-Initial onboarding focused on:
+**Key observations:**
 
-* Identity (Entra ID sign-in logs)
-* Cloud (AWS CloudTrail, GuardDuty)
-* Endpoint (CrowdStrike)
-* Email (Proofpoint)
-
-This ensured early visibility into high-risk activity.
+Getting data in reliably is the hardest part of a SIEM deployment. Detection maturity cannot scale until ingestion is stable. Connected does not mean working — validation with real data is the only reliable check. Start simple with detection. Complex analytics built on poorly understood data structure are worse than simple queries built on data you trust. SOC workflows have to be built alongside the platform, not after it. Technology does not improve operations on its own.
 
 ---
 
-### 2. Connector Deployment and Troubleshooting
-
-Each integration required:
-
-* Reviewing documentation
-* Validating permissions and roles
-* Testing ingestion manually
-
-Common issues encountered:
-
-* Incorrect IAM role trust relationships (AWS)
-* Misconfigured S3 bucket permissions
-* Logs not being written where expected
-* Connector showing “connected” but no data present
-
-This phase required **significant troubleshooting and iteration**.
-
----
-
-### 3. Ingestion Validation Model
-
-A structured validation approach was introduced:
-
-* Confirm log presence in Sentinel tables
-
-* Validate:
-
-  * Event timestamps
-  * Expected volume
-  * Field completeness
-
-* Compare:
-
-  * Source system logs vs Sentinel ingestion
-
-This helped identify **silent failures early**.
-
----
-
-### 4. Data Normalization and Query Usability
-
-Early ingestion revealed:
-
-* Inconsistent field naming
-* Difficulty writing reusable queries
-
-Actions taken:
-
-* Standardized key fields where possible:
-
-  * User identifiers
-  * IP addresses
-  * Event types
-
-* Built baseline KQL queries to:
-
-  * Explore data
-  * Understand structure
-  * Identify gaps
-
----
-
-### 5. Detection and Hunting Content Development
-
-Detection capability was built progressively:
-
-* Initial focus:
-
-  * Basic anomaly detection
-  * High-risk activity patterns
-
-* Expanded into:
-
-  * Cloud activity monitoring (AWS API usage)
-  * Identity anomalies (sign-in behaviour)
-  * Endpoint alerts correlation
-
-* Hunting queries developed to:
-
-  * Explore unknown patterns
-  * Validate detection logic
-
----
-
-### 6. Workbook and Dashboard Development
-
-Developed workbooks for:
-
-* **Operational monitoring**
-
-  * Ingestion health
-  * Log volume trends
-
-* **SOC visibility**
-
-  * Incident trends
-  * Alert distribution
-
-* **Management reporting**
-
-  * High-level security posture
-  * Risk trends
-
----
-
-### 7. SOC Workflow Enablement
-
-Established basic operational processes:
-
-* Triage workflows for alerts
-* Investigation steps using Sentinel data
-* Feedback loop:
-
-  * Analyst findings → detection improvements
-
----
-
-## Security Controls Implemented
-
-* Centralized SIEM ingestion (Sentinel)
-* Log collection across:
-
-  * Identity, cloud, endpoint, and email systems
-* Detection analytics for common threat scenarios
-* Threat hunting queries for proactive analysis
-* Workbooks for operational and governance visibility
-* Runbooks for ingestion validation and triage processes
-
----
-
-## Operational Impact
-
-### Improved Visibility
-
-* Single platform for cross-domain monitoring
-* Reduced need to pivot between tools
-
----
-
-### Increased Investigation Consistency
-
-* Analysts followed repeatable workflows
-* Reduced time spent gathering context
-
----
-
-### Detection Maturity Growth
-
-* Detection logic improved over time
-* Hunting informed analytics tuning
-
----
-
-### Foundation for Future Scaling
-
-* New integrations became easier after initial patterns were established
-* SIEM became a core operational platform
-
----
-
-## Lessons Learned
-
-* **Getting data in is the hardest part**
-  SIEM value depends entirely on ingestion reliability
-
-* **“Connected” does not mean working**
-  Connectors must always be validated with real data
-
-* **Start simple with detection**
-  Complex analytics are not useful without understanding baseline data
-
-* **Data structure matters more than volume**
-  Poorly structured logs reduce detection effectiveness
-
-* **SOC workflows must be built alongside the platform**
-  Technology alone does not improve operations
-
----
-
-## Key Takeaways
-
-Building a SIEM foundation is not just a deployment task, it is an iterative engineering and operational process.
-
-Success depends on:
-
-* Reliable ingestion
-* Usable data structures
-* Incremental detection development
-* Continuous feedback from SOC workflows
-
-A stable foundation enables long-term detection maturity and operational effectiveness.
-
----
+*Organisational identifiers, client data, and commercially sensitive information have been omitted.*

@@ -1,4 +1,4 @@
-# Case Study: Endpoint Browser Hardening Using CIS Benchmarks & Extension Governance
+# Case Study: Endpoint and Browser Hardening Using CIS Benchmarks & Extension Governance
 
 **Domain:** Endpoint Security & Configuration Management
 **Focus Areas:** Browser Hardening · CIS Benchmark Implementation · Extension Governance · Data Exfiltration Control
@@ -9,37 +9,21 @@
 
 ## Overview
 
-Modern enterprise environments rely heavily on web browsers as the primary interface for SaaS platforms, administrative portals, and internal tools. This creates a significant attack surface at the endpoint level, where misconfigurations, insecure extensions, and unmanaged browser behaviours can introduce risks such as data exfiltration, session hijacking, and malware delivery.
+Modern enterprise environments rely heavily on web browsers as the primary interface for SaaS platforms, administrative portals, and internal tools. This creates a significant attack surface at the endpoint level, where misconfigurations, unmanaged extensions, and inconsistent browser behaviour introduce real risks — data exfiltration, session hijacking, and malware delivery being the most common.
 
-This case study documents the implementation of a structured browser hardening program across managed endpoints, using CIS benchmarks for Google Chrome and Microsoft Edge as a baseline, alongside a governance model for browser extension control.
+This case study documents how I implemented a structured browser hardening program across managed endpoints, using CIS benchmarks for Google Chrome and Microsoft Edge as a baseline, alongside a governance model for browser extension control.
 
-The initiative focused not only on technical enforcement via Microsoft Intune and enterprise policies, but also on aligning browser behaviour with organisational security controls such as data classification, conditional access, and acceptable use.
+The focus was not just on technical enforcement via Microsoft Intune and enterprise policies, but on making browser behaviour actually align with broader security controls: data classification, Conditional Access, and acceptable use. Getting those to work together required more thought than the technical configuration itself.
 
 ---
 
 ## Context & Motivation
 
-The need for browser hardening emerged from several converging factors:
+The need for browser hardening came from a few things converging at once.
 
-* **Browsers as primary attack surface**
-  The majority of business applications were accessed via browser, making it effectively the new endpoint perimeter. Traditional endpoint controls alone were insufficient.
+Browsers had effectively become the new endpoint perimeter. With the majority of business applications accessed via browser, traditional endpoint controls alone weren't cutting it. At the same time, users were installing extensions without any visibility or approval process, which was introducing risks around data scraping, credential harvesting, and unvetted third-party code running inside the browser context.
 
-* **Uncontrolled extension usage**
-  Users were installing browser extensions without visibility or approval, introducing risks around:
-
-  * Data scraping and exfiltration
-  * Credential harvesting
-  * Unvetted third-party code execution within browser context
-
-* **Inconsistent browser configurations**
-  Without enforced baselines, browser settings varied across devices, leading to gaps in:
-
-  * Secure transport enforcement
-  * Content handling
-  * Script execution controls
-
-* **Alignment with ISO 27001 controls**
-  Controls such as secure configuration (Annex A 8.9), web filtering (8.23), and access control (5.x series) required stronger enforcement at the browser layer.
+On top of that, browser configurations across devices were all over the place. Without enforced baselines, settings varied enough that there were real gaps in secure transport enforcement, content handling, and script execution. From an ISO 27001 standpoint, controls around secure configuration (Annex A 8.9), web filtering (8.23), and access control required stronger enforcement at the browser layer than we had.
 
 ---
 
@@ -47,140 +31,29 @@ The need for browser hardening emerged from several converging factors:
 
 ### 1. Translating CIS Benchmarks into Enforceable Policies
 
-CIS benchmarks provide detailed configuration guidance, but are not inherently deployment-ready. The challenge was translating these into enforceable settings via Intune and browser enterprise policies.
+CIS benchmarks are detailed and well-structured, but they are not deployment-ready out of the box. The challenge was mapping those recommendations into enforceable settings via Intune and enterprise browser policies, which meant working across the Intune Settings Catalog, ADMX-backed Administrative Templates, and registry-based configurations depending on the control.
 
-Key difficulties included:
-
-* Mapping CIS recommendations to:
-
-  * Intune Settings Catalog
-  * Administrative Templates (ADMX-backed policies)
-  * Registry-based configurations where needed
-
-* Determining applicability:
-
-  * Some CIS controls are overly restrictive for real-world SaaS usage
-  * Required balancing security vs usability
-
-**Approach taken:**
-
-* Categorised controls into:
-
-  * Enforce (high-risk, low-impact)
-  * Conditional (requires business validation)
-  * Not applicable (breaks required functionality)
-
-* Built a baseline aligned to **secure-by-default without disrupting core workflows**
-
----
+Not every CIS recommendation made sense to enforce as-is. Some were overly restrictive for environments where specific SaaS workflows depend on browser behaviour that a strict CIS implementation would block. The approach I took was categorising controls into three buckets: enforce unconditionally, enforce conditionally pending business validation, and not applicable because it breaks required functionality. The goal was a baseline that was secure-by-default without breaking core workflows.
 
 ### 2. Extension Management Without Breaking Productivity
 
-Extensions represented one of the highest risk vectors, but also a legitimate productivity tool.
+Extensions were the highest-risk vector and also the thing people were most resistant to locking down. Password managers, sales tooling, dev utilities — there were legitimate use cases that had to be accommodated, which meant a blanket block wasn't realistic.
 
-Challenges included:
+Chrome and Edge behave differently here too. Chrome allows forced installs and allowlisting by extension ID, but Incognito behaviour requires the user to manually enable extensions, which caused issues. Edge has tighter Microsoft ecosystem integration but still has extension dependencies.
 
-* **Shadow IT extensions**
-  Users installing tools without approval
-
-* **Business reliance on specific extensions**
-  Example categories:
-
-  * Password managers
-  * Sales tooling
-  * Dev utilities
-
-* **Browser differences (Chrome vs Edge)**
-
-  * Chrome: forced installs possible, but Incognito behaviour requires manual user enablement
-  * Edge: tighter integration with Microsoft ecosystem, but still extension-dependent
-
-**Resolution:**
-
-A **controlled allowlist model** was implemented:
-
-* Block all extensions by default
-
-* Allow only:
-
-  * Approved extensions via enterprise policy
-  * Explicit allowlist based on extension IDs
-
-* Introduced a **formal extension review process**:
-
-  * Security review
-  * Privacy assessment
-  * Business justification
-
-This aligned extension usage with existing vendor risk processes.
-
----
+The solution was a controlled allowlist model: block all extensions by default, allow only approved ones via enterprise policy using extension IDs, and introduce a formal review process for new extension requests that covered security review, privacy assessment, and business justification. This brought extension governance in line with existing vendor risk processes rather than treating it as a separate thing.
 
 ### 3. Interaction with Conditional Access and Device Compliance
 
-Browser behaviour directly impacted Conditional Access outcomes.
+Browser behaviour had a direct impact on Conditional Access outcomes, which was not immediately obvious until we started seeing authentication failures. The main issues were unmanaged browsers bypassing controls, Incognito/InPrivate contexts breaking extension-dependent authentication flows, and SSO extensions not being active when needed.
 
-Key issues identified:
-
-* **Unmanaged browsers bypassing controls**
-
-* **Incognito/InPrivate limitations**
-
-  * Extensions not active by default
-  * Resulting in authentication failures or policy bypass attempts
-
-* **SSO dependency**
-
-  * Microsoft SSO extensions required for seamless authentication
-
-**Mitigation approach:**
-
-* Enforced **managed browser requirement**:
-
-  * Edge (preferred)
-  * Chrome with enforced enterprise policies
-
-* Configured:
-
-  * Required extensions (SSO, security tooling)
-  * Blocked unmanaged browser contexts where possible
-
-* Provided user guidance:
-
-  * Why Incognito may fail
-  * How to enable required extensions if needed
-
----
+The mitigation was enforcing a managed browser requirement (Edge preferred, Chrome with enterprise policies enforced), configuring required extensions including SSO and security tooling, and providing user guidance that actually explained why Incognito might fail rather than just expecting users to figure it out.
 
 ### 4. Balancing Security Controls with Real-World Usage
 
-Overly aggressive hardening can break legitimate workflows.
+Aggressive hardening breaks things, and broken things get bypassed. The clipboard restriction controls were a good example: they prevent data leakage, but they also impacted on-call workflows where people needed to paste things quickly under pressure. URL handling policies that restricted link opening to managed browsers had to be aligned with mobile and BYOD policies too.
 
-Examples of trade-offs:
-
-* **Clipboard restrictions**
-
-  * Prevent data leakage
-  * But impacted workflows like on-call processes
-
-* **URL handling policies**
-
-  * Restricting link opening to managed browsers
-  * Required alignment with mobile and BYOD policies
-
-* **TLS and content enforcement**
-
-  * Blocking insecure content vs legacy system compatibility
-
-**Approach:**
-
-* Tested policies in staged rollout:
-
-  * Pilot group
-  * Feedback loop
-  * Gradual enforcement
-
-* Maintained exceptions where justified, but documented and tracked
+The approach was staged rollout: pilot group, feedback loop, gradual enforcement. Controls that generated legitimate friction went back to the drawing board. Exceptions were permitted where justified, but documented and tracked rather than just quietly allowed.
 
 ---
 
@@ -188,139 +61,32 @@ Examples of trade-offs:
 
 ### CIS-Based Browser Hardening Baseline
 
-For both Chrome and Edge:
-
-* Enforced secure transport (HTTPS-only behaviour where applicable)
-
-* Disabled risky features:
-
-  * Insecure content execution
-  * Password reuse risks
-
-* Controlled:
-
-  * Download behaviour
-  * Popups and redirects
-  * JavaScript and plugin execution (where relevant)
-
-* Applied via:
-
-  * Intune configuration profiles
-  * Administrative Templates
-  * Policy-backed enforcement
-
----
+For both Chrome and Edge, the baseline covered enforcing secure transport where applicable, disabling high-risk features, controlling download behaviour, popups, redirects, and JavaScript execution where relevant. Deployment was via Intune configuration profiles and Administrative Templates.
 
 ### Extension Governance Model
 
-Implemented a structured extension control framework:
+A default-deny posture with an approved extension allowlist. Security-critical extensions and SSO integrations were force-installed via enterprise policy. Review criteria included data access permissions, vendor reputation, privacy policy analysis, and business necessity.
 
-* **Default deny posture**
+### Integration with Endpoint and Identity Controls
 
-* **Approved extension allowlist**
+Browser hardening was integrated with Intune compliance policies (only compliant devices allowed access), Conditional Access (enforced managed device and browser requirements), and data protection controls including App Protection Policies for mobile contexts.
 
-* Forced install for:
+### User Communication
 
-  * Security-critical extensions
-  * SSO and identity integrations
-
-* Review criteria included:
-
-  * Data access permissions
-  * Vendor reputation
-  * Privacy policy analysis
-  * Business necessity
+Clear communication about what changed and why made a material difference to adoption. Users who understood the reasoning behind restrictions were significantly less likely to try to work around them. Guidance covered extension requests, browser usage expectations, and troubleshooting common issues like Incognito authentication failures.
 
 ---
 
-### Integration with Endpoint & Identity Controls
+## Outcomes
 
-Browser hardening was not implemented in isolation.
+Reduced risk of malicious extensions, data exfiltration via browser, and inconsistent endpoint configurations. Increased visibility into extension usage and browser-based risk exposure. Conditional Access reliability improved because browser posture was now consistent and predictable.
 
-It was aligned with:
+From an ISO 27001 perspective, the work directly supported secure configuration management, access control enforcement, web usage governance, and data protection mechanisms.
 
-* **Intune compliance policies**
+**Key observations:**
 
-  * Only compliant devices allowed access
-
-* **Conditional Access**
-
-  * Enforced access from managed devices and browsers
-
-* **Data protection controls**
-
-  * App Protection Policies (mobile context)
-  * Data transfer restrictions
+Browsers are a control plane, not just an application. In SaaS-heavy environments, treating browser security as a first-class concern is not optional. Extensions are a major blind spot without governance, and governance without enforcement is just a document. User experience matters: controls that disrupt real workflows will be bypassed one way or another, so designing for usability is not a concession, it is a security requirement.
 
 ---
 
-### User Communication & Change Management
-
-A key success factor was **clear communication**:
-
-* Explained:
-
-  * Why restrictions were introduced
-  * What users might experience differently
-
-* Provided guidance on:
-
-  * Extension requests
-  * Browser usage expectations
-  * Troubleshooting common issues
-
-This reduced friction and improved adoption.
-
----
-
-## Outcomes & Observations
-
-### Improved Security Posture
-
-* Reduced risk of:
-
-  * Malicious extensions
-  * Data exfiltration via browser
-  * Inconsistent endpoint configurations
-
-* Increased visibility into:
-
-  * Extension usage
-  * Browser-based risk exposure
-
----
-
-### Stronger Alignment with ISO 27001
-
-Controls supported:
-
-* Secure configuration management
-* Access control enforcement
-* Web usage governance
-* Data protection mechanisms
-
----
-
-### Operational Benefits
-
-* Standardised browser behaviour across fleet
-* Reduced troubleshooting variability
-* Improved Conditional Access reliability
-
----
-
-### Key Observations
-
-* **Browser = endpoint control plane**
-  Treating browser security as a core control layer is critical in SaaS-heavy environments
-
-* **Extensions are a major blind spot**
-  Without governance, they introduce unmanaged third-party risk
-
-* **User experience matters**
-  Security controls that disrupt workflows will be bypassed unless carefully designed
-
-* **Policy + technical enforcement must align**
-  Governance without enforcement is ineffective, and enforcement without context creates friction
-
----
+*Organisational identifiers, client data, and commercially sensitive information have been omitted.*

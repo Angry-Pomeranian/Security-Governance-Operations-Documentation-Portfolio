@@ -587,3 +587,17 @@ AWSCloudTrail
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:5f888c,25:3d6e72,50:c22942,75:a4466c,100:cda41d&height=160&section=footer&text=Nicole's+Cybersecurity+Portfolio&fontSize=20&fontColor=ffffff&animation=fadeIn&fontAlignY=62&desc=Built+to+demonstrate+practical+implementation+of+enterprise+security+controls&descSize=13&descColor=f0e6b2&descAlignY=80"/>
 </p>
+
+---
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=C22942&center=true&vCenter=true&width=400&lines=Contributing+%26+Reporting"/>
+</p>
+
+<br>
+
+> This repository is a **read-only portfolio**. Content is protected under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+If you believe any content in this repository inadvertently exposes sensitive information or have a security concern, please follow the responsible disclosure process outlined in [`SECURITY.md`](https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/blob/main/SECURITY.md) rather than opening a public issue.
+
+**Do not open public issues for security concerns.**

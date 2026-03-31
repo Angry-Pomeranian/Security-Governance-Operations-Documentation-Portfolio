@@ -26,6 +26,14 @@
   <a href="https://www.iso.org/standard/42001">
     <img src="https://img.shields.io/badge/Aligned-ISO%2042001-%23a4466c?style=for-the-badge&logoColor=white"/>
   </a>
+   
+  <a href="https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-cda41d?style=for-the-badge&labelColor=1a0a0f"/>
+  </a>
+   
+  <a href="https://github.com/Angry-Pomeranian/Security-Governance-Operations-Documentation-Portfolio/blob/main/SECURITY.md">
+    <img src="https://img.shields.io/badge/Security%20Policy-View-%23c22942?style=for-the-badge&logo=github&labelColor=1a0a0f"/>
+  </a>
 </p>
 
 <br>

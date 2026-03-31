@@ -263,29 +263,6 @@ As a bonus, the repo itself is structured to work as a cover letter. The website
   <a href="https://www.regular-expressions.info/"><img src="https://img.shields.io/badge/Regex-5f888c?style=for-the-badge&logoColor=white"/></a>
 </p>
 
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=C22942&center=true&vCenter=true&width=560&lines=Security+Domains+%26+Proficiency"/>
-</p>
-
-<br>
-
-<p align="center">
-
-| Domain | Focus | Proficiency |
-|--------|-------|-------------|
-| 🛡  **Identity & Access Security** | Conditional Access architecture, phishing-resistant MFA, passwordless deployment, and Entra PIM | ![95%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━━━━━░░-95%25-a4466c?style=flat-square&labelColor=1a0a0f) |
-| 📊  **Detection Engineering & SIEM** | Sentinel connector deployment, KQL analytics rules, threat hunting queries, and workbook development | ![90%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━━━░░░░-90%25-c22942?style=flat-square&labelColor=1a0a0f) |
-| 🧱  **Infrastructure Hardening** | CIS benchmark configurations for Windows, RHEL, and enterprise browsers; Intune and GPO enforcement | ![88%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━━━░░░░-88%25-8c2f1d?style=flat-square&labelColor=1a0a0f) |
-| ☁  **Cloud Security & Telemetry** | AWS CloudTrail, GuardDuty, and VPC Flow Logs ingestion into Sentinel via S3 and SQS pipelines | ![85%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━━░░░░░-85%25-5f888c?style=flat-square&labelColor=0d1416) |
-| 📜  **Governance & ISO 27001** | ISO 27001:2022 control implementation, ASD Essential Eight mapping, and NIST CSF alignment | ![85%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━━░░░░░-85%25-cda41d?style=flat-square&labelColor=0d1416) |
-| 🩺  **Vulnerability Management** | Tenable-based scan and remediation lifecycle, patch tracking, and risk prioritisation | ![82%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━░░░░░░-82%25-c22942?style=flat-square&labelColor=0d1416) |
-| ⚙  **Security Automation** | PowerShell and YAML automation, Azure Logic Apps, ARM templates, and operational runbooks | ![80%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━░░░░░░-80%25-324749?style=flat-square&labelColor=1a0a0f) |
-| ✉  **Email & Data Security** | Proofpoint AI governance, shadow AI discovery (CASB), GenAI DLP, and adaptive access controls | ![80%](https://img.shields.io/badge/━━━━━━━━━━━━━━━━░░░░░░-80%25-a4466c?style=flat-square&labelColor=1a0a0f) |
-| 🔑  **Privileged Access** | HashiCorp Vault, BeyondTrust, Delinea, and Passwordstate PAM control implementation | ![78%](https://img.shields.io/badge/━━━━━━━━━━━━━░░░░░░░░░-78%25-5f888c?style=flat-square&labelColor=0d1416) |
-| 🌐  **Network Security** | Cisco Umbrella DNS security, Palo Alto and FortiGate firewall policies, and bypass prevention | ![75%](https://img.shields.io/badge/━━━━━━━━━━━━━░░░░░░░░░-75%25-8c2f1d?style=flat-square&labelColor=0d1416) |
-
-</p>
-
 <br>
 
 <p align="center">

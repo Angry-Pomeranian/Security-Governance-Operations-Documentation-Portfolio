@@ -64,10 +64,6 @@ As a bonus, the repo itself is structured to work as a cover letter. The website
     <td bgcolor="#0d1416">Professional overview — security domains, skills matrix with depth ratings, engineering methodology, and certifications in progress</td>
   </tr>
   <tr>
-    <td bgcolor="#1a0a0f">📁  <strong><code>projects/</code></strong></td>
-    <td bgcolor="#1a0a0f">Curated project write-ups describing real security implementation work</td>
-  </tr>
-  <tr>
     <td bgcolor="#0d1416">🏗  <strong><code>architecture/</code></strong></td>
     <td bgcolor="#0d1416">Security architecture documentation explaining system design and monitoring models</td>
   </tr>
@@ -293,14 +289,14 @@ As a bonus, the repo itself is structured to work as a cover letter. The website
 <br>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=E8B830&center=true&vCenter=true&width=380&lines=Security+Projects"/>
+  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=22&pause=9999&color=E8B830&center=true&vCenter=true&width=380&lines=Case+Studies"/>
 </p>
 
 <br>
 
 <table width="100%">
   <tr>
-    <th align="left" bgcolor="#1a0800">Project</th>
+    <th align="left" bgcolor="#1a0800">Case Studies</th>
     <th align="left" bgcolor="#1a0800">Domain</th>
     <th align="left" bgcolor="#1a0800">Description</th>
   </tr>

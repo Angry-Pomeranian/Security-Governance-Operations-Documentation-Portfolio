@@ -1,4 +1,4 @@
-# Security Event Investigation Methodology
+# Case Study Security Event Investigation Methodology
 
 A structured approach to investigating security alerts from SIEM and EDR platforms — from initial alert review through to threat determination, customer communication, and escalation decision.
 

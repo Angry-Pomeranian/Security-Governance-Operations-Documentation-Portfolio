@@ -112,7 +112,7 @@ python cis_benchmark_converter.py \
 | `-i`, `--input` | Path to the CIS benchmark PDF |
 | `-o`, `--output` | Output file path (optional) |
 | `-f`, `--format` | Output format: csv, excel, or json |
-| `--start_page` | Page number where benchmark controls begin |
+| `--start_page` | Page number where benchmark controls begin - make sure you double check prior to running! |
 | `--log_level` | Logging verbosity |
 
 ---

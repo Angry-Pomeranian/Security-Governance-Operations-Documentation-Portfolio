@@ -54,7 +54,7 @@ See `scripts/README.md` for full parameter reference.
 
 ---
 
-## Related
+## Related 
 
-- MEM browser policy deployments → `../identity-access/policies/conditional-access/mem-win10-chrome-cis/`
-- MEM browser policy deployments → `../identity-access/policies/conditional-access/mem-win10-edge-cis/`
+- MEM browser policy deployment for intune congfig policy (settings catalog template) → `../identity-access/policies/conditional-access/mem-win10-chrome-cis/`
+- MEM browser policy deployments for intune congfig policy (settings catalog template) → `../identity-access/policies/conditional-access/mem-win10-edge-cis/`

@@ -206,8 +206,3 @@ The purpose of this pilot is to validate compatibility and user experience acros
 | Enable component updates in Chrome       | Enabled                                            |
 
 ---
-
-## Notes
-
-This configuration enforces **CIS Level 1 and 2 baselines** for Google Chrome on Windows 10+ within *company*. It ensures security hardening through controlled updates, strict permissions, and minimized user override capability.
----

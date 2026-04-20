@@ -2,9 +2,13 @@
 
 ## About This Repository
 
-This repository contains security governance and operations documentation
-for portfolio purposes. It does not contain executable code, live systems,
-or sensitive infrastructure details.
+This repository contains security engineering portfolio content including
+governance documentation, technical reference material, architecture
+documentation, case studies, and automation examples. Some files include
+scripts and infrastructure-as-code for illustrative purposes.
+
+This repository does not contain live system credentials, active
+infrastructure configurations, or sensitive organisational details.
 
 ## Reporting a Concern
 
@@ -18,17 +22,18 @@ I aim to respond to all security concerns within **5 business days**.
 
 ## Intellectual Property
 
-All documentation, frameworks, and written content in this repository are
-original works created by the repository owner. Unauthorised reproduction,
-redistribution, or claiming of this work as your own is prohibited.
+All documentation, frameworks, written content, and code examples in this
+repository are original works created by the repository owner. Unauthorised
+reproduction, redistribution, or claiming of this work as your own is
+prohibited.
 
 ## Scope
 
-As this is a static documentation repository, the following are considered
-out of scope:
+The following are considered out of scope for security reporting:
 
-- Vulnerabilities in third-party tools referenced in documentation
+- Vulnerabilities in third-party tools or platforms referenced in documentation
 - GitHub platform vulnerabilities
+- Issues with illustrative code examples that reference non-existent environments
 - Suggestions unrelated to content confidentiality or attribution
 
 ## Supported Versions
@@ -36,7 +41,7 @@ out of scope:
 This repository is maintained as a living portfolio. Only the current
 `main` branch reflects the latest supported content.
 
-| Branch  | Maintained         |
-| ------- | ------------------ |
-| main    | :white_check_mark: |
-| others  | :x:                |
+| Branch | Maintained         |
+| ------ | ------------------ |
+| main   | :white_check_mark: |
+| others | :x:                |
